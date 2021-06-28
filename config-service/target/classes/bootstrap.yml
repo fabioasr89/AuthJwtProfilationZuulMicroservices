@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: config-service
+
+server:  port: 8088    
+---
+spring:
+   profiles: dev
+   cloud:    config:      server:        git:          uri: C:/cloud/micro_service_auth/config

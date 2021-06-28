@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: zuul-service
+
+
+jwt:
+  secret: A67OHRTY87
+  expiration: 7200
+  token: X-TOKEN
+
+feign:
+  tokenService:
+    id: token-service
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 160000
+  connection-timeout: 300000
+---
+spring:
+  profiles: dev
+zuul:
+  routes:
+    api-service:
+      path: /services/rs/api/**
+      serviceId: api-service
+      strip-prefix: true
+    token-service: 
+      path: /services/token/**
+      serviceId: api-service
+      strip-prefix: true
+  host:
+    time-to-live: -1
+    connect-timeout-millis: 15000
+    max-per-route-connections: 10000
+    max-total-connections: 5000
+    socket-timeout-millis: 60000
+  semaphore:
+      max-semaphores: 500
+hystrix:
+  command:
+    myusers-service:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 15000
+eureka:
+  client:
+    fetch-registry: true 
+    register-with-eureka: false

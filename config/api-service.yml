@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: api-service
+---
+spring:
+  profiles: dev
+
+eureka:
+  client:
+    fetch-registry: true 
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1 
